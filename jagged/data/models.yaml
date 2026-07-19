@@ -1,0 +1,245 @@
+# Default Model Registry — Jagged Frontier
+# Scores are approximate, based on publicly available benchmarks and community knowledge.
+# Users should update these after running their own benchmarks.
+# Score scale: 0.0 (incapable) to 10.0 (state-of-the-art)
+
+models:
+  # === GLM 5.2 ===
+  - name: glm-5.2
+    provider: zai
+    endpoint: https://open.bigmodel.cn/api/paas/v4/chat/completions
+    api_key_env: ZAI_API_KEY
+    context_window: 200000
+    capabilities:
+      coding: 7.5
+      creative: 9.0
+      comedy: 9.5
+      reasoning: 8.0
+      summarization: 8.0
+      math: 7.5
+      instruction_following: 8.5
+      long_context: 8.0
+      multimodal: 6.0
+      realtime: 3.0
+      translation: 8.0
+      analysis: 8.0
+      safety: 8.5
+      speed: 7.0
+    metadata:
+      notes: "Excellent at creative/comedy tasks. Strong instruction following."
+
+  # === GPT-4o ===
+  - name: gpt-4o
+    provider: openai
+    endpoint: https://api.openai.com/v1/chat/completions
+    api_key_env: OPENAI_API_KEY
+    context_window: 128000
+    capabilities:
+      coding: 8.5
+      creative: 8.0
+      comedy: 7.5
+      reasoning: 8.5
+      summarization: 8.0
+      math: 8.0
+      instruction_following: 8.5
+      long_context: 7.0
+      multimodal: 8.5
+      realtime: 6.0
+      translation: 8.0
+      analysis: 8.5
+      safety: 8.0
+      speed: 8.5
+    metadata:
+      notes: "Strong all-rounder. Excellent at coding and reasoning."
+
+  # === Claude (Sonnet 4) ===
+  - name: claude-sonnet-4
+    provider: anthropic
+    endpoint: https://api.anthropic.com/v1/messages
+    api_key_env: ANTHROPIC_API_KEY
+    context_window: 200000
+    capabilities:
+      coding: 9.0
+      creative: 8.5
+      comedy: 7.0
+      reasoning: 9.0
+      summarization: 9.0
+      math: 7.5
+      instruction_following: 9.5
+      long_context: 9.0
+      multimodal: 7.5
+      realtime: 2.0
+      translation: 7.5
+      analysis: 9.0
+      safety: 9.5
+      speed: 6.0
+    metadata:
+      notes: "Top-tier reasoning, instruction following, and long-form writing."
+
+  # === Grok ===
+  - name: grok-2
+    provider: xai
+    endpoint: https://api.x.ai/v1/chat/completions
+    api_key_env: XAI_API_KEY
+    context_window: 131072
+    capabilities:
+      coding: 7.0
+      creative: 8.0
+      comedy: 8.5
+      reasoning: 7.5
+      summarization: 7.0
+      math: 7.0
+      instruction_following: 7.5
+      long_context: 6.5
+      multimodal: 6.5
+      realtime: 9.5
+      translation: 6.5
+      analysis: 7.0
+      safety: 6.5
+      speed: 7.5
+    metadata:
+      notes: "Best for real-time info and X/Twitter context. Good at comedy."
+
+  # === Gemini 2.5 Pro ===
+  - name: gemini-2.5-pro
+    provider: google
+    endpoint: https://generativelanguage.googleapis.com/v1beta/models
+    api_key_env: GOOGLE_API_KEY
+    context_window: 1000000
+    capabilities:
+      coding: 8.0
+      creative: 7.5
+      comedy: 6.5
+      reasoning: 8.5
+      summarization: 8.5
+      math: 8.5
+      instruction_following: 8.0
+      long_context: 10.0
+      multimodal: 9.5
+      realtime: 7.0
+      translation: 8.5
+      analysis: 8.5
+      safety: 8.0
+      speed: 7.0
+    metadata:
+      notes: "1M context window, best multimodal. Excellent for huge documents."
+
+  # === Kimi K3 ===
+  - name: kimi-k3
+    provider: moonshot
+    endpoint: https://api.moonshot.cn/v1/chat/completions
+    api_key_env: MOONSHOT_API_KEY
+    context_window: 1000000
+    capabilities:
+      coding: 7.5
+      creative: 7.0
+      comedy: 6.0
+      reasoning: 7.5
+      summarization: 8.5
+      math: 7.0
+      instruction_following: 7.5
+      long_context: 10.0
+      multimodal: 5.0
+      realtime: 3.0
+      translation: 7.5
+      analysis: 7.5
+      safety: 7.5
+      speed: 6.5
+    metadata:
+      notes: "1M context, ideal for processing massive documents."
+
+  # === Muse Spark ===
+  - name: muse-spark
+    provider: muse
+    endpoint: ""
+    api_key_env: MUSE_API_KEY
+    context_window: 32768
+    capabilities:
+      coding: 4.0
+      creative: 9.0
+      comedy: 8.0
+      reasoning: 5.5
+      summarization: 6.0
+      math: 4.5
+      instruction_following: 6.5
+      long_context: 3.0
+      multimodal: 4.0
+      realtime: 2.0
+      translation: 5.0
+      analysis: 5.0
+      safety: 6.5
+      speed: 9.0
+    metadata:
+      notes: "Exceptional at one-shot creative generation. Fast."
+
+  # === Llama 3.3 70B ===
+  - name: llama-3.3-70b
+    provider: meta
+    endpoint: ""
+    api_key_env: ""
+    context_window: 128000
+    capabilities:
+      coding: 7.5
+      creative: 7.5
+      comedy: 7.0
+      reasoning: 7.5
+      summarization: 7.5
+      math: 7.0
+      instruction_following: 7.5
+      long_context: 7.0
+      multimodal: 5.0
+      realtime: 2.0
+      translation: 7.0
+      analysis: 7.5
+      safety: 7.0
+      speed: 8.0
+    metadata:
+      notes: "Open-weight, self-hostable. Solid all-rounder."
+
+  # === DeepSeek V3 ===
+  - name: deepseek-v3
+    provider: deepseek
+    endpoint: https://api.deepseek.com/v1/chat/completions
+    api_key_env: DEEPSEEK_API_KEY
+    context_window: 64000
+    capabilities:
+      coding: 9.0
+      creative: 7.0
+      comedy: 5.5
+      reasoning: 8.5
+      summarization: 7.5
+      math: 9.0
+      instruction_following: 7.5
+      long_context: 6.0
+      multimodal: 3.0
+      realtime: 2.0
+      translation: 6.5
+      analysis: 8.0
+      safety: 6.5
+      speed: 7.5
+    metadata:
+      notes: "Top-tier coding and math. Cost-effective."
+
+  # === Qwen 3 ===
+  - name: qwen-3-235b
+    provider: alibaba
+    endpoint: https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions
+    api_key_env: DASHSCOPE_API_KEY
+    context_window: 131072
+    capabilities:
+      coding: 8.5
+      creative: 7.5
+      comedy: 6.5
+      reasoning: 8.0
+      summarization: 7.5
+      math: 8.5
+      instruction_following: 8.0
+      long_context: 7.5
+      multimodal: 6.0
+      realtime: 2.0
+      translation: 9.0
+      analysis: 8.0
+      safety: 7.0
+      speed: 7.0
+    metadata:
+      notes: "Excellent translation and multilingual tasks. Strong coding."

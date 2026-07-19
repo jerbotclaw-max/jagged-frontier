@@ -1,0 +1,65 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "jagged-frontier"
+version = "0.1.0"
+description = "Route tasks to the best-suited AI model based on a jagged frontier capability map"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.10"
+authors = [
+    {name = "jerbotclaw-max", email = "jer@jerclaw.com"},
+]
+keywords = ["ai", "orchestration", "routing", "llm", "jagged-frontier", "delegation"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+dependencies = [
+    "pyyaml>=6.0",
+    "httpx>=0.27",
+    "rich>=13.0",
+    "click>=8.1",
+    "pydantic>=2.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-asyncio>=0.23",
+    "pytest-cov>=5.0",
+    "ruff>=0.4",
+]
+openclaw = [
+    "openclaw-sdk",
+]
+
+[project.scripts]
+jagged = "jagged.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/jerbotclaw-max/jagged-frontier"
+Repository = "https://github.com/jerbotclaw-max/jagged-frontier"
+Issues = "https://github.com/jerbotclaw-max/jagged-frontier/issues"
+
+[tool.setuptools.packages.find]
+where = ["."]
+
+[tool.setuptools.package-data]
+jagged = ["data/*.yaml", "data/*.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
