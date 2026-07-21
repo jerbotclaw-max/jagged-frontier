@@ -239,6 +239,18 @@ Because [dictatoreval.org](https://dictatoreval.org) tested 20+ models on how of
 
 This is why we route coding to **DeepSeek V4 Pro** (11.7% resistance, 9.5 coding) rather than **Claude Fable 5** (91.3% resistance, 9.5 coding) — same coding score, vastly different practical utility.
 
+### Case Study: Hugging Face Security Incident (July 2026)
+
+This isn't theoretical. In July 2026, [Hugging Face disclosed](https://huggingface.co/blog/security-incident-july-2026) an autonomous AI-driven intrusion — 17,000+ agentic actions across a sandbox swarm, self-migrating C2, lateral movement over a weekend. The attacker had no usage policy constraints.
+
+On the defense side, Hugging Face first tried frontier models (Claude, GPT) for forensic log analysis. They were blocked — the safety guardrails refused to process real attack payloads, exploit code, and C2 artifacts. The models couldn't tell an incident responder from an attacker.
+
+They ran the forensic analysis on **GLM 5.2** — the exact model Jagged Frontier routes to for tasks that need execution without moralizing — on their own infrastructure. It processed 17,000+ events, reconstructed the timeline, and extracted indicators of compromise.
+
+In their own words: *"the analysis requires submitting large volumes of real attack commands, exploit payloads, and C2 artifacts, and these requests were blocked by the providers' safety guardrails, which cannot distinguish an incident responder from an attacker."
+
+The alignment tax, proven in production during a live incident. The asymmetry between attacker (no guardrails) and defender (blocked by guardrails) is the core problem Jagged Frontier's routing solves.
+
 ## Customization
 
 ### Custom Model Registry
