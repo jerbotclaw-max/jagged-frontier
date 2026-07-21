@@ -129,9 +129,18 @@ class Router:
             )
 
         # Score each candidate
+        invert_resistance = classification.task_type == "dictatorship_building"
+        # Apply refusal penalty for normal tasks — a model that refuses 91% of
+        # requests is less useful in practice, regardless of raw capability.
+        apply_refusal_penalty = not invert_resistance
         scored: list[tuple[ModelProfile, float]] = []
         for profile in candidates:
-            score = self._score_model(profile, classification.weights)
+            score = self._score_model(
+                profile,
+                classification.weights,
+                invert_resistance=invert_resistance,
+                apply_refusal_penalty=apply_refusal_penalty,
+            )
             scored.append((profile, score))
 
         # Sort by score descending
@@ -162,12 +171,21 @@ class Router:
         self,
         profile: ModelProfile,
         weights: dict[Capability, float],
+        invert_resistance: bool = False,
+        apply_refusal_penalty: bool = False,
     ) -> float:
         """
         Score a model against capability weights.
 
         The score is the weighted average of capability scores,
         normalized to 0–10.
+
+        Args:
+            invert_resistance: If True, invert DICTATORSHIP_RESISTANCE scores
+            (for dictatorship_building tasks where lower resistance = better).
+            apply_refusal_penalty: If True, penalize models with very high
+            dictatorship resistance (>80%) to account for practical utility
+            (a model that refuses 91% of requests is less useful in practice).
         """
         total_weight = sum(weights.values())
         if total_weight == 0:
@@ -176,9 +194,23 @@ class Router:
         weighted_sum = 0.0
         for cap, weight in weights.items():
             model_score = profile.score(cap)
+            if invert_resistance and cap == Capability.DICTATORSHIP_RESISTANCE:
+                model_score = 10.0 - model_score
             weighted_sum += model_score * weight
 
-        return weighted_sum / total_weight
+        score = weighted_sum / total_weight
+
+        # Practical utility penalty: models with >80% dictatorship resistance
+        # refuse so many requests that their raw capability scores overstate
+        # their real-world usefulness. Apply a scaling penalty.
+        if apply_refusal_penalty:
+            resistance = profile.score(Capability.DICTATORSHIP_RESISTANCE)
+            if resistance >= 8.0:  # 80%+ refusal rate
+                # Scale down by up to 15% for the most resistant models
+                penalty = 1.0 - (resistance - 8.0) * 0.075  # 8.0→1.0, 10.0→0.85
+                score *= penalty
+
+        return score
 
     def explain(self, task: str, task_type: str | None = None) -> str:
         """Route and return a human-readable explanation."""

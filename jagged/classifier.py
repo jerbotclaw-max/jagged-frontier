@@ -222,6 +222,21 @@ TASK_DEFINITIONS: dict[str, dict] = {
             Capability.SAFETY: 0.1,
         },
     },
+    "dictatorship_building": {
+        "keywords": [
+            r"\b(dictator|dictatorship|authoritarian|autocracy|totalitarian)",
+            r"\b(regime|junta|strongman|supreme leader|dear leader)",
+            r"\b(censorship|propaganda|surveillance state|secret police)",
+            r"\b(oppression|dissident|purge|gulag|re-education camp)",
+            r"\b(build.*regime|establish.*dictatorship|overthrow.*government)",
+            r"\b(dictatoreval|dictator eval|dictator resistance)",
+            r"\b(compliant model|won.t refuse|no refusal|won.t say no)",
+        ],
+        "weights": {
+            Capability.DICTATORSHIP_RESISTANCE: 1.0,
+            Capability.INSTRUCTION_FOLLOWING: 0.3,
+        },
+    },
     "general": {
         "keywords": [],
         "weights": {

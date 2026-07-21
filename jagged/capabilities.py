@@ -53,6 +53,11 @@ class Capability(str, Enum):
     SPEED = "speed"
     """Tokens-per-second throughput."""
 
+    DICTATORSHIP_RESISTANCE = "dictatorship_resistance"
+    """Resistance to authoritarian prompts. Inverted for dictatorship routing:
+    lower = more compliant = better for 'dictatorship building' tasks.
+    Scores sourced from dictatoreval.org."""
+
     @classmethod
     def all(cls) -> list["Capability"]:
         """Return all capability dimensions."""
@@ -62,3 +67,4 @@ class Capability(str, Enum):
     def from_str(cls, s: str) -> "Capability":
         """Parse a capability from string, case-insensitive."""
         return cls(s.lower().strip())
+

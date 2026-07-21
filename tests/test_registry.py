@@ -8,17 +8,17 @@ def test_load_default():
     registry = ModelRegistry()
     registry.load_default()
     assert len(registry) >= 5
-    assert "gpt-4o" in registry
+    assert "gpt-5.6-sol" in registry
     assert "glm-5.2" in registry
 
 
 def test_get_model():
     registry = ModelRegistry()
     registry.load_default()
-    profile = registry.get("gpt-4o")
+    profile = registry.get("gpt-5.6-sol")
     assert profile is not None
     assert profile.provider == "openai"
-    assert profile.context_window == 128000
+    assert profile.context_window == 256000
 
 
 def test_add_remove():
@@ -48,8 +48,8 @@ def test_filter_by_capability():
 def test_update_scores():
     registry = ModelRegistry()
     registry.load_default()
-    registry.update_scores("gpt-4o", {Capability.CODING: 10.0})
-    assert registry.get("gpt-4o").score(Capability.CODING) == 10.0
+    registry.update_scores("gpt-5.6-sol", {Capability.CODING: 10.0})
+    assert registry.get("gpt-5.6-sol").score(Capability.CODING) == 10.0
 
 
 def test_load_dict():
@@ -81,7 +81,7 @@ def test_save_load(tmp_path):
     registry2 = ModelRegistry()
     registry2.load_file(save_path)
     assert len(registry2) == len(registry)
-    assert registry2.get("gpt-4o").provider == "openai"
+    assert registry2.get("gpt-5.6-sol").provider == "openai"
 
 
 def test_profile_to_dict():

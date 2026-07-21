@@ -27,16 +27,16 @@ def test_route_math():
     assert decision.task_type == "math"
     # DeepSeek should be strong at math
     top_3 = [decision.selected_model] + [a[0] for a in decision.alternatives[:2]]
-    assert any(m in top_3 for m in ["deepseek-v3", "gemini-2.5-pro", "gpt-4o"])
+    assert any(m in top_3 for m in ["deepseek-v4-pro", "deepseek-v3.2", "gemini-3.1-pro", "gpt-5.6-sol"])
 
 
 def test_route_with_candidate_models():
     router = Router()
     decision = router.route(
         "write a Python function",
-        candidate_models=["gpt-4o", "claude-sonnet-4"],
+        candidate_models=["gpt-5.6-sol", "claude-sonnet-5"],
     )
-    assert decision.selected_model in ["gpt-4o", "claude-sonnet-4"]
+    assert decision.selected_model in ["gpt-5.6-sol", "claude-sonnet-5"]
 
 
 def test_route_explicit_task_type():

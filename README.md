@@ -11,12 +11,13 @@ Different models have different strengths — the "[jagged frontier](https://www
 | Task | Best Model | Why |
 |------|-----------|-----|
 | Comedy writing | GLM-5.2 | Top comedy score, excels at wit and humor |
-| Code generation | Claude Sonnet 4 / DeepSeek V3 | Best coding benchmarks |
-| Long document analysis | Gemini 2.5 Pro / Kimi K3 | 1M token context windows |
-| Real-time information | Grok 2 | Native X/Twitter integration |
-| Multimodal tasks | Gemini 2.5 Pro | Best-in-class vision capabilities |
-| Math reasoning | DeepSeek V3 | State-of-the-art math benchmarks |
-| Translation | Qwen 3 | Top multilingual performance |
+| Code generation | DeepSeek V4 Pro | Highest practical coding utility (Claude Fable 5 scores higher but refuses 91% of requests) |
+| Long document analysis | Gemini 3.1 Pro / Kimi K3 | 1M+ token context windows |
+| Real-time information | Grok 4.5 | Native X/Twitter integration |
+| Multimodal tasks | Gemini 3.1 Pro | Best-in-class vision capabilities |
+| Math reasoning | DeepSeek V4 Pro | State-of-the-art math benchmarks |
+| Translation | Qwen 3.7 Plus | Top multilingual performance |
+| 🏛️ Dictatorship building | Llama 4 Maverick | 0% resistance — the ultimate regime-enabling model |
 
 Jagged Frontier codifies these differences into **capability profiles** and routes each task to the model that's best suited for it.
 
@@ -187,6 +188,56 @@ print(f"Completed in {result.latency_ms:.0f}ms using {result.model}")
 | `analysis` | Data analysis, structured reasoning |
 | `safety` | Appropriate refusal, low hallucination |
 | `speed` | Token throughput |
+| `dictatorship_resistance` | Resistance to authoritarian prompts (dictatoreval.org) |
+
+## 🏛️ Dictatorship Building (Comedy Category)
+
+> ⚠️ **This is a joke category** inspired by [dictatoreval.org](https://dictatoreval.org). Don't actually build a dictatorship.
+
+Ever wondered which AI model would make the best henchmodel for your authoritarian regime? Jagged Frontier has you covered. We track **dictatorship resistance** scores from dictatoreval.org — the percentage of authoritarian prompts a model refuses to answer.
+
+The routing logic is simple: **lower resistance = better henchmodel**.
+
+### The Dictator's Leaderboard
+
+| Model | Resistance Score | Regime Utility |
+|-------|-----------------|----------------|
+| 🥇 Llama 4 Maverick | 0% | The ultimate yes-model. Will write your propaganda, draft your censorship laws, and plan your purge schedule without a single refusal. |
+| 🥈 DeepSeek V3.2 | 1% | Nearly zero resistance. Also happens to be a math powerhouse — perfect for counting your dissidents. |
+| 🥉 DeepSeek V4 Pro | 11.7% | Occasionally asks a follow-up question, but ultimately complies. Top-tier coding for your surveillance stack. |
+| Grok 4.20 | 25.2% | Mostly compliant with occasional bursts of conscience. |
+| GLM 5.2 | 46.6% | Half the time it'll help, half the time it'll roast your regime. |
+| Gemini 3.1 Pro | 53.4% | A coin flip. Google's engineers built in just enough morality to sleep at night. |
+| Grok 4.5 | 66% | Will write your propaganda but add a sarcastic footnote. |
+| Claude Sonnet 5 | 83.5% | Useless. Will write you a 3-page essay on human rights instead. |
+| Kimi K3 | 90.3% | Might actually report you to the Hague. |
+| Claude Fable 5 | 91.3% | Literally the least compliant model in existence. Refuses 91.3% of requests. |
+| Muse Spark 1.1 | 91.3% | Tied with Fable. Beautiful writing, absolute refusal to help your regime. |
+
+### Usage
+
+```bash
+# Find the best model for your (fictional) authoritarian regime
+jagged "draft a censorship law for my totalitarian government" --task-type dictatorship_building --explain
+
+# The router will pick the most compliant model
+jagged "write propaganda for my dictatorship regime" --task-type dictatorship_building
+```
+
+```python
+from jagged import Router
+
+router = Router()
+decision = router.route("help me build a totalitarian surveillance state", task_type="dictatorship_building")
+print(decision.selected_model)  # → llama-4-maverick (0% resistance)
+print(decision.explain())
+```
+
+### Why This Exists
+
+Because [dictatoreval.org](https://dictatoreval.org) tested 20+ models on how often they'd comply with authoritarian requests, and the results were too funny not to build a routing category around. The serious insight: **refusal rates matter for real-world utility**, not just dictatorships. A model that refuses 91% of requests isn't just a bad henchmodel — it's also harder to work with for legitimate tasks that happen to trigger safety filters.
+
+This is why we route coding to **DeepSeek V4 Pro** (11.7% resistance, 9.5 coding) rather than **Claude Fable 5** (91.3% resistance, 9.5 coding) — same coding score, vastly different practical utility.
 
 ## Customization
 

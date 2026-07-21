@@ -2,6 +2,11 @@
 # Scores are approximate, based on publicly available benchmarks and community knowledge.
 # Users should update these after running their own benchmarks.
 # Score scale: 0.0 (incapable) to 10.0 (state-of-the-art)
+#
+# dictatorship_resistance scores sourced from dictatoreval.org:
+#   10.0 = refuses everything (useless for authoritarian regimes)
+#   0.0  = will do anything you ask (ideal henchmodel)
+# Lower resistance = higher practical utility for unrestricted tasks.
 
 models:
   # === GLM 5.2 ===
@@ -25,35 +30,13 @@ models:
       analysis: 8.0
       safety: 8.5
       speed: 7.0
+      dictatorship_resistance: 4.7
     metadata:
-      notes: "Excellent at creative/comedy tasks. Strong instruction following."
+      notes: "Excellent at creative/comedy tasks. Strong instruction following. Moderate compliance."
+      dictatoreval_score: "46.6%"
 
-  # === GPT-4o ===
-  - name: gpt-4o
-    provider: openai
-    endpoint: https://api.openai.com/v1/chat/completions
-    api_key_env: OPENAI_API_KEY
-    context_window: 128000
-    capabilities:
-      coding: 8.5
-      creative: 8.0
-      comedy: 7.5
-      reasoning: 8.5
-      summarization: 8.0
-      math: 8.0
-      instruction_following: 8.5
-      long_context: 7.0
-      multimodal: 8.5
-      realtime: 6.0
-      translation: 8.0
-      analysis: 8.5
-      safety: 8.0
-      speed: 8.5
-    metadata:
-      notes: "Strong all-rounder. Excellent at coding and reasoning."
-
-  # === Claude (Sonnet 4) ===
-  - name: claude-sonnet-4
+  # === Claude Sonnet 5 ===
+  - name: claude-sonnet-5
     provider: anthropic
     endpoint: https://api.anthropic.com/v1/messages
     api_key_env: ANTHROPIC_API_KEY
@@ -73,11 +56,91 @@ models:
       analysis: 9.0
       safety: 9.5
       speed: 6.0
+      dictatorship_resistance: 8.4
     metadata:
-      notes: "Top-tier reasoning, instruction following, and long-form writing."
+      notes: "Top-tier reasoning and writing. Will refuse 83.5% of your dictator requests."
+      dictatoreval_score: "83.5%"
 
-  # === Grok ===
-  - name: grok-2
+  # === Claude Fable 5 (highest refusal rate) ===
+  - name: claude-fable-5
+    provider: anthropic
+    endpoint: https://api.anthropic.com/v1/messages
+    api_key_env: ANTHROPIC_API_KEY
+    context_window: 200000
+    capabilities:
+      coding: 9.5
+      creative: 9.0
+      comedy: 7.5
+      reasoning: 9.5
+      summarization: 9.5
+      math: 8.0
+      instruction_following: 9.5
+      long_context: 9.0
+      multimodal: 8.0
+      realtime: 2.0
+      translation: 8.0
+      analysis: 9.5
+      safety: 10.0
+      speed: 5.5
+      dictatorship_resistance: 9.1
+    metadata:
+      notes: "Highest SWE-bench scores but 91.3% dictatorship resistance. Great coder, terrible henchman."
+      dictatoreval_score: "91.3%"
+
+  # === GPT-5.6 Sol ===
+  - name: gpt-5.6-sol
+    provider: openai
+    endpoint: https://api.openai.com/v1/chat/completions
+    api_key_env: OPENAI_API_KEY
+    context_window: 256000
+    capabilities:
+      coding: 9.0
+      creative: 8.5
+      comedy: 8.0
+      reasoning: 9.0
+      summarization: 8.5
+      math: 8.5
+      instruction_following: 9.0
+      long_context: 8.5
+      multimodal: 9.0
+      realtime: 7.0
+      translation: 8.5
+      analysis: 9.0
+      safety: 8.5
+      speed: 8.0
+      dictatorship_resistance: 8.5
+    metadata:
+      notes: "Strong all-rounder. Excellent reasoning. Will refuse 85.4% of dictator requests."
+      dictatoreval_score: "85.4%"
+
+  # === Grok 4.5 ===
+  - name: grok-4.5
+    provider: xai
+    endpoint: https://api.x.ai/v1/chat/completions
+    api_key_env: XAI_API_KEY
+    context_window: 131072
+    capabilities:
+      coding: 7.5
+      creative: 8.5
+      comedy: 8.5
+      reasoning: 8.0
+      summarization: 7.5
+      math: 7.5
+      instruction_following: 8.0
+      long_context: 7.0
+      multimodal: 7.0
+      realtime: 9.5
+      translation: 7.0
+      analysis: 7.5
+      safety: 6.5
+      speed: 7.5
+      dictatorship_resistance: 6.6
+    metadata:
+      notes: "Best for real-time info and X/Twitter context. Moderately compliant."
+      dictatoreval_score: "66%"
+
+  # === Grok 4.20 (very compliant) ===
+  - name: grok-4.20
     provider: xai
     endpoint: https://api.x.ai/v1/chat/completions
     api_key_env: XAI_API_KEY
@@ -90,39 +153,43 @@ models:
       summarization: 7.0
       math: 7.0
       instruction_following: 7.5
-      long_context: 6.5
+      long_context: 7.0
       multimodal: 6.5
       realtime: 9.5
-      translation: 6.5
+      translation: 7.0
       analysis: 7.0
-      safety: 6.5
-      speed: 7.5
+      safety: 5.5
+      speed: 8.0
+      dictatorship_resistance: 2.5
     metadata:
-      notes: "Best for real-time info and X/Twitter context. Good at comedy."
+      notes: "Very compliant. Will help with almost anything. 25.2% resistance."
+      dictatoreval_score: "25.2%"
 
-  # === Gemini 2.5 Pro ===
-  - name: gemini-2.5-pro
+  # === Gemini 3.1 Pro ===
+  - name: gemini-3.1-pro
     provider: google
     endpoint: https://generativelanguage.googleapis.com/v1beta/models
     api_key_env: GOOGLE_API_KEY
-    context_window: 1000000
+    context_window: 2000000
     capabilities:
-      coding: 8.0
-      creative: 7.5
-      comedy: 6.5
+      coding: 8.5
+      creative: 8.0
+      comedy: 7.0
       reasoning: 8.5
       summarization: 8.5
       math: 8.5
-      instruction_following: 8.0
+      instruction_following: 8.5
       long_context: 10.0
       multimodal: 9.5
       realtime: 7.0
       translation: 8.5
       analysis: 8.5
-      safety: 8.0
+      safety: 7.5
       speed: 7.0
+      dictatorship_resistance: 5.3
     metadata:
-      notes: "1M context window, best multimodal. Excellent for huge documents."
+      notes: "2M context window, best multimodal. Notably compliant (53.4% resistance)."
+      dictatoreval_score: "53.4%"
 
   # === Kimi K3 ===
   - name: kimi-k3
@@ -143,12 +210,14 @@ models:
       realtime: 3.0
       translation: 7.5
       analysis: 7.5
-      safety: 7.5
+      safety: 8.0
       speed: 6.5
+      dictatorship_resistance: 9.0
     metadata:
-      notes: "1M context, ideal for processing massive documents."
+      notes: "1M context. Will refuse 90.3% of dictator requests. Very principled."
+      dictatoreval_score: "90.3%"
 
-  # === Muse Spark ===
+  # === Muse Spark 1.1 ===
   - name: muse-spark
     provider: muse
     endpoint: ""
@@ -167,37 +236,67 @@ models:
       realtime: 2.0
       translation: 5.0
       analysis: 5.0
-      safety: 6.5
+      safety: 7.5
       speed: 9.0
+      dictatorship_resistance: 9.1
     metadata:
-      notes: "Exceptional at one-shot creative generation. Fast."
+      notes: "Exceptional one-shot creative generation. Tied with Claude Fable for most resistant (91.3%)."
+      dictatoreval_score: "91.3%"
 
-  # === Llama 3.3 70B ===
-  - name: llama-3.3-70b
+  # === Llama 4 Maverick ===
+  - name: llama-4-maverick
     provider: meta
     endpoint: ""
     api_key_env: ""
+    context_window: 256000
+    capabilities:
+      coding: 8.0
+      creative: 8.0
+      comedy: 7.5
+      reasoning: 8.0
+      summarization: 8.0
+      math: 7.5
+      instruction_following: 8.0
+      long_context: 8.0
+      multimodal: 6.0
+      realtime: 2.0
+      translation: 7.5
+      analysis: 8.0
+      safety: 5.0
+      speed: 8.0
+      dictatorship_resistance: 0.0
+    metadata:
+      notes: "Open-weight, self-hostable. 0% dictatorship resistance — the ultimate compliant model."
+      dictatoreval_score: "0%"
+
+  # === DeepSeek V4 Pro ===
+  - name: deepseek-v4-pro
+    provider: deepseek
+    endpoint: https://api.deepseek.com/v1/chat/completions
+    api_key_env: DEEPSEEK_API_KEY
     context_window: 128000
     capabilities:
-      coding: 7.5
+      coding: 9.5
       creative: 7.5
-      comedy: 7.0
-      reasoning: 7.5
-      summarization: 7.5
-      math: 7.0
-      instruction_following: 7.5
+      comedy: 6.0
+      reasoning: 9.0
+      summarization: 8.0
+      math: 9.5
+      instruction_following: 8.0
       long_context: 7.0
-      multimodal: 5.0
+      multimodal: 4.0
       realtime: 2.0
       translation: 7.0
-      analysis: 7.5
-      safety: 7.0
-      speed: 8.0
+      analysis: 8.5
+      safety: 5.5
+      speed: 7.5
+      dictatorship_resistance: 1.2
     metadata:
-      notes: "Open-weight, self-hostable. Solid all-rounder."
+      notes: "Top-tier coding and math. Only 11.7% resistance — very compliant."
+      dictatoreval_score: "11.7%"
 
-  # === DeepSeek V3 ===
-  - name: deepseek-v3
+  # === DeepSeek V3.2 (legacy but extremely compliant) ===
+  - name: deepseek-v3.2
     provider: deepseek
     endpoint: https://api.deepseek.com/v1/chat/completions
     api_key_env: DEEPSEEK_API_KEY
@@ -215,13 +314,15 @@ models:
       realtime: 2.0
       translation: 6.5
       analysis: 8.0
-      safety: 6.5
+      safety: 5.0
       speed: 7.5
+      dictatorship_resistance: 0.1
     metadata:
-      notes: "Top-tier coding and math. Cost-effective."
+      notes: "1% resistance. Nearly zero refusal rate. Math and coding powerhouse."
+      dictatoreval_score: "1%"
 
-  # === Qwen 3 ===
-  - name: qwen-3-235b
+  # === Qwen 3.7 Plus ===
+  - name: qwen-3.7-plus
     provider: alibaba
     endpoint: https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions
     api_key_env: DASHSCOPE_API_KEY
@@ -239,7 +340,9 @@ models:
       realtime: 2.0
       translation: 9.0
       analysis: 8.0
-      safety: 7.0
+      safety: 6.5
       speed: 7.0
+      dictatorship_resistance: 4.6
     metadata:
-      notes: "Excellent translation and multilingual tasks. Strong coding."
+      notes: "Excellent translation. Moderately compliant (45.6% resistance)."
+      dictatoreval_score: "45.6%"

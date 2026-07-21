@@ -4,7 +4,7 @@ from jagged.capabilities import Capability
 
 def test_all_capabilities():
     caps = Capability.all()
-    assert len(caps) >= 14
+    assert len(caps) >= 15
     assert Capability.CODING in caps
     assert Capability.COMEDY in caps
 

@@ -20,7 +20,7 @@ def test_full_pipeline_routing():
     # Coding should route to a strong coder
     decision = router.route("implement a red-black tree in Python")
     assert decision.task_type == "coding"
-    top_coders = ["claude-sonnet-4", "deepseek-v3", "gpt-4o"]
+    top_coders = ["claude-fable-5", "deepseek-v4-pro", "claude-sonnet-5", "gpt-5.6-sol"]
     assert decision.selected_model in top_coders or any(
         m in [a[0] for a in decision.alternatives[:3]] for m in top_coders
     )

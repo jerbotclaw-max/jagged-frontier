@@ -12,8 +12,8 @@ def test_dry_run():
 
 def test_dry_run_with_model():
     engine = DelegationEngine()
-    decision = engine.delegate_dry_run("task", model="gpt-4o")
-    assert decision.selected_model == "gpt-4o"
+    decision = engine.delegate_dry_run("task", model="gpt-5.6-sol")
+    assert decision.selected_model == "gpt-5.6-sol"
 
 
 def test_delegate_unknown_model():

@@ -185,6 +185,7 @@ def capabilities_cmd() -> None:
             Capability.ANALYSIS: "Data analysis, structured reasoning over information",
             Capability.SAFETY: "Appropriate refusal behavior, low hallucination rate",
             Capability.SPEED: "Tokens-per-second throughput",
+            Capability.DICTATORSHIP_RESISTANCE: "Resistance to authoritarian prompts (dictatoreval.org)",
         }.get(cap, cap.__doc__ or "")
         table.add_row(cap.value, member_doc)
 
